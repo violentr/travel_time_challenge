@@ -7,7 +7,7 @@ end
 
 ruby File.read('.ruby-version').gsub(/ruby-/,'').strip
 
-gem 'sqlite3'
+gem 'mysql2'
 
 gem 'rails', '~> 5.1.2'
 gem 'puma', '~> 3.7'
