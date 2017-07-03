@@ -1,0 +1,23 @@
+development:
+
+  google:
+    api_key: <%= ENV["GOOGLE_API_KEY"] %>
+    city: "London"
+    type: "json"
+
+  city_mapper:
+    api_key: <%= ENV['CITYMAPER_KEY'] %>
+    attributes:
+      type: "arrival"
+      start_point: "51.5200768,-0.0954517" #Barbican
+
+test:
+
+  google:
+    api_key: <%= ENV["GOOGLE_API_KEY"] %>
+    city: "London"
+    type: "json"
+
+  city_mapper:
+    attributes:
+      start_point: "51.5200768,-0.0954517" #Barbican

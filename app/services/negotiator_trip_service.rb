@@ -16,7 +16,7 @@ class NegotiatorTripService
   end
 
   def start_point
-     "51.5200768,-0.0954517" #Barbican
+    APPCONFIG["city_mapper"]["attributes"]["start_point"] #Barbican
   end
 
   def calculate_trip

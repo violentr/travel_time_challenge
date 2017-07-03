@@ -6,20 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 #
-type= "json"
-city= "London"
-area = "Stratford"
-api_key = "AIzaSyCge5-5TyJkzFAfSSUvZvywkPE5FRSUA4M"
-start_point = "51.5200768,-0.0954517" #Barbican
-type_time = "arrival"
+type= APPCONFIG["google"]["type"]
+city = APPCONFIG["google"]["city"]
+google_api_key = APPCONFIG["google"]["api_key"]
+type_time = APPCONFIG["city_mapper"]["attributes"]["type"]
 travel_list = %w(Stratford Moorgate Oval Aldgate Paddington Farringdon Euston Westminster Hoxton Whitechapel)
 
-travel_list.each_with_index do |travel_to, i|
-  area = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/#{type}?address=#{city},#{travel_to}&key=#{api_key}")
+travel_list.each do |travel_to|
+  area = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/#{type}?address=#{city},#{travel_to}&key=#{google_api_key}")
   lat = area.parsed_response["results"][0]["geometry"]["location"]["lat"]
   lng = area.parsed_response["results"][0]["geometry"]["location"]["lng"]
 
-  end_point = [lat, lng].join(',')
   puts "Populating database with travel points, current record is #{travel_to}"
   GeoLocation.create(name: travel_to, latitude: lat, longitude: lng, time_type: type_time)
 end
