@@ -2,7 +2,7 @@ RSpec.describe NegotiatorTripService do
 
   let(:location)  { create(:geo_location) }
   let(:estate_agent) { NegotiatorTripService.new(location, Time.now) }
-  let(:citymaper_url) { NegotiatorTripService::BASE_URL.concat(estate_agent.api_path)}
+  let(:citymaper_url) { NegotiatorTripService::BASE_URL + estate_agent.api_path[:travel_time]}
 
     it "it should be initialized with params " do
       expect{NegotiatorTripService.new}.to raise_error ArgumentError
@@ -33,4 +33,9 @@ RSpec.describe NegotiatorTripService do
       expect(estate_agent.calculate_trip).to eq "31"
     end
 
+    it "should cover only London area" do
+      stub_request(:get, /developer.citymapper.com/).to_return(:body => "false", :status => 200, :headers => {})
+      allow(estate_agent).to receive(:area_is_covered?).and_return(false)
+      expect(estate_agent.calculate_trip).to eq "this location is outside of London"
+    end
   end
