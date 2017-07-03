@@ -1,9 +1,7 @@
-require_relative '../app/services/negotiator_trip_service'
-
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
