@@ -30,7 +30,7 @@ class NegotiatorTripService
   end
 
   def area_is_covered?
-    url = BASE_URL + api_url(api_path[:single_point_coverage]) + "?coord=#{destination}&key=#{ENV['CITYMAPER_KEY']}"
+    url = api_url(api_path[:single_point_coverage]) + "?coord=#{destination}&key=#{ENV['CITYMAPER_KEY']}"
     HTTParty.get(url).parsed_response["points"][0]["covered"]
   end
 
