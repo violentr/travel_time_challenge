@@ -1,6 +1,4 @@
-require_relative '../../lib/assets/google_maps'
 class GoogleMapsService
-  extend GoogleMaps
 
   attr_reader :area
 
