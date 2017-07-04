@@ -1,4 +1,13 @@
 <div style="width:600px;margin:0 auto;">
+  <h3>London areas stored in database: </h3>
+  <ul>
+    <% @areas.each do |area| %>
+      <li> <%= area %> </li>
+    <% end %>
+  </ul>
+</div>
+
+<div style="width:600px;margin:0 auto;">
   <strong> Please enter area where estate agent is going to: </strong>
   <div style="padding:10px">
     <%= form_for "location", url: root_path do |f| %>

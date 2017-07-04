@@ -1,4 +1,5 @@
 class GeoLocation< ApplicationRecord
+  scope :areas, -> { where("name is not null") }
 
   def self.create_if_not_found(location)
     if find_by(name: location.name)
