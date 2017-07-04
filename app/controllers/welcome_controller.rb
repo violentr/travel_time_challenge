@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
 
   def index
-    @areas = GeoLocation.all.map(&:name)
+    @areas = GeoLocation.areas.map(&:name)
     if request.post?
       searched_area = params[:location][:name].titleize
       google_search = GoogleMapsService.new(searched_area)

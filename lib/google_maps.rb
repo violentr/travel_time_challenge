@@ -3,7 +3,7 @@ module GoogleMaps
   def self.locate_area(area)
     type= APPCONFIG["google"]["type"]
     city = APPCONFIG["google"]["city"]
-    google_api_key = APPCONFIG["google"]["api_key"]
+    google_api_key = APPCONFIG["google"]["api_key"] || (raise GoogleMaps::MissingApiKey.new)
     area = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/#{type}?address=#{city},#{area}&key=#{google_api_key}")
   end
 
@@ -19,4 +19,5 @@ module GoogleMaps
     lng = longitude(response)
     [lat, lng].join(',')
   end
+  class MissingApiKey < StandardError; end
 end

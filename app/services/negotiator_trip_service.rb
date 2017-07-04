@@ -19,9 +19,13 @@ class NegotiatorTripService
     APPCONFIG["city_mapper"]["attributes"]["start_point"] #Barbican
   end
 
+  def citymaper_api_key
+    APPCONFIG['city_mapper']['api_key'] || (raise NegotiatorTripService::CityMapperMissingApiKey.new)
+  end
+
   def calculate_trip
     url = api_url(api_path[:travel_time]) +
-     "?startcoord=#{start_point}&endcoord=#{destination}&time=#{departure_time}&time_type=arrival&key=#{ENV['CITYMAPER_KEY']}"
+     "?startcoord=#{start_point}&endcoord=#{destination}&time=#{departure_time}&time_type=arrival&key=#{citymaper_api_key}"
     if area_is_covered?
       HTTParty.get(url).parsed_response["travel_time_minutes"]
     else
@@ -30,11 +34,13 @@ class NegotiatorTripService
   end
 
   def area_is_covered?
-    url = api_url(api_path[:single_point_coverage]) + "?coord=#{destination}&key=#{ENV['CITYMAPER_KEY']}"
+    url = api_url(api_path[:single_point_coverage]) + "?coord=#{destination}&key=#{citymaper_api_key}"
     HTTParty.get(url).parsed_response["points"][0]["covered"]
   end
 
   def api_path
     {travel_time: "api/1/traveltime/", single_point_coverage: "api/1/singlepointcoverage/"}
   end
+
+  class CityMapperMissingApiKey < StandardError; end
 end
