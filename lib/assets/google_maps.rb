@@ -8,11 +8,11 @@ module GoogleMaps
   end
 
   def self.latitude(response)
-    response.parsed_response["results"][0]["geometry"]["location"]["lat"]
+    response["results"][0]["geometry"]["location"]["lat"]
   end
 
   def self.longitude(response)
-    response.parsed_response["results"][0]["geometry"]["location"]["lng"]
+    response["results"][0]["geometry"]["location"]["lng"]
   end
   def self.destination
     lat = latitude(response)
