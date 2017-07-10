@@ -1,26 +1,2 @@
-<div style="width:600px;margin:0 auto;">
-  <h3>London areas stored in database: </h3>
-  <ul>
-    <% @areas.each do |area| %>
-      <li> <%= area %> </li>
-    <% end %>
-  </ul>
-</div>
-
-<div style="width:600px;margin:0 auto;">
-  <strong> Please enter area where estate agent is going to: </strong>
-  <div style="padding:10px">
-    <%= form_for "location", url: root_path do |f| %>
-      <%= f.label :area %>
-      <%= f.text_field :name %>
-      <%= f.submit "Ok" %>
-    <% end %>
-  </div>
-  <% if @route %>
-    <% if @trip.area_is_covered? %>
-      <p> It will take you <strong><%= @route.to_s + " minutes" %> </strong> to go from Barbican to  <%= @location.name %> </p>
-    <% else %>
-      <p> <%= @location.name %> </p>
-    <% end %>
-  <% end %>
-</div>
+<div id="map"></div>
+<!-- Replace the value of the key parameter with your own API key. -->

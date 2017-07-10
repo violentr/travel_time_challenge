@@ -16,4 +16,12 @@ class WelcomeController < ApplicationController
                   end
     end
   end
+
+  def list_areas
+   data = GeoLocation.areas.each_with_object({}) do |area, hash|
+     current_object = {latitude: area.latitude, longitude: area.longitude}
+      hash[area.name] = current_object
+    end
+   render json: data
+  end
 end
