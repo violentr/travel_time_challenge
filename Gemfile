@@ -9,6 +9,7 @@ ruby File.read('.ruby-version').gsub(/ruby-/,'').strip
 
 gem 'mysql2'
 gem 'httparty'
+gem 'jquery-rails'
 gem 'rails', '~> 5.1.2'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
