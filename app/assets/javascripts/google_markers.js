@@ -1,5 +1,5 @@
-$(document).on("turbolinks:load", (function() {
 
+listAreas = function(){
    var welcomeUrl = 'welcome/list_areas'
 
    var myOptions = {
@@ -10,15 +10,14 @@ $(document).on("turbolinks:load", (function() {
 
   var map = new google.maps.Map($('#map')[0], myOptions);
 
-   $.get( welcomeUrl, function( data ) {
+   $.get(welcomeUrl, function( data ) {
      $.each(data, function(_, coords) {
        var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
        new google.maps.Marker({
          position: latlng,
          map: map
        });
-
      });
    });
-})
-              );
+ }
+$(document).on("ready page:load", listAreas)
